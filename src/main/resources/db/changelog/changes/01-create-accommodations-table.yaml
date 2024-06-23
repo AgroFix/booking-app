@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_accommodations_table
+      author: AgroFix
+      changes:
+        - createTable:
+            tableName: accommodations
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location
+                  type: varchar(255)
+              - column:
+                  name: size
+                  type: varchar(50)
+              - column:
+                  name: amenities
+                  type: text
+              - column:
+                  name: daily_rate
+                  type: decimal(10, 2)
+              - column:
+                  name: availability
+                  type: int
