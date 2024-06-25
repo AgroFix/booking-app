@@ -12,6 +12,7 @@ import org.mapstruct.Named;
 public interface AccommodationMapper {
     @Mapping(target = "type", source = "type", qualifiedByName = "getTypeFromEnum")
     AccommodationResponseDto toResponseDto(Accommodation accommodation);
+
     Accommodation toEntity(AccommodationRequestDto accommodationRequestDto);
 
     @Named("getTypeFromEnum")

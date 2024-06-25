@@ -1,13 +1,11 @@
 package my.petproject.booking.dto.accommodation;
 
-
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class AccommodationRequestDto {

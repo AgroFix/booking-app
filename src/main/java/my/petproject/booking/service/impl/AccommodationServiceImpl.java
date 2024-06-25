@@ -1,5 +1,7 @@
 package my.petproject.booking.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import my.petproject.booking.dto.accommodation.AccommodationRequestDto;
 import my.petproject.booking.dto.accommodation.AccommodationResponseDto;
@@ -11,9 +13,6 @@ import my.petproject.booking.service.AccommodationService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class AccommodationServiceImpl implements AccommodationService {
@@ -21,9 +20,12 @@ public class AccommodationServiceImpl implements AccommodationService {
     public static final String CANT_FIND_BY_ID = "Can't find accommodation with id: ";
     private final AccommodationRepository accommodationRepository;
     private final AccommodationMapper accommodationMapper;
+
     @Override
-    public AccommodationResponseDto createAccommodation(AccommodationRequestDto accommodationRequestDto) {
-        return accommodationMapper.toResponseDto(accommodationRepository
+    public AccommodationResponseDto createAccommodation(
+            AccommodationRequestDto accommodationRequestDto) {
+        return accommodationMapper
+                .toResponseDto(accommodationRepository
                 .save(accommodationMapper.toEntity(accommodationRequestDto)));
     }
 
@@ -35,9 +37,11 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    public AccommodationResponseDto updateAccommodationById(AccommodationRequestDto accommodationRequestDto, Long id) {
+    public AccommodationResponseDto updateAccommodationById(
+            AccommodationRequestDto accommodationRequestDto, Long id) {
         checkIfAccommodationExists(id);
-        Accommodation accommodation = accommodationMapper.toEntity(accommodationRequestDto).setId(id);
+        Accommodation accommodation = accommodationMapper
+                .toEntity(accommodationRequestDto).setId(id);
         return accommodationMapper.toResponseDto(accommodationRepository.save(accommodation));
     }
 

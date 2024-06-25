@@ -3,6 +3,7 @@ package my.petproject.booking.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import my.petproject.booking.dto.accommodation.AccommodationRequestDto;
 import my.petproject.booking.dto.accommodation.AccommodationResponseDto;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/accommodations")
 @RequiredArgsConstructor
@@ -32,7 +31,8 @@ public class AccommodationController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new accommodation",
             description = "Endpoint for creating a new accommodation")
-    public AccommodationResponseDto create(@RequestBody @Valid AccommodationRequestDto accommodationRequestDto) {
+    public AccommodationResponseDto create(
+            @RequestBody @Valid AccommodationRequestDto accommodationRequestDto) {
         return accommodationService.createAccommodation(accommodationRequestDto);
     }
 
