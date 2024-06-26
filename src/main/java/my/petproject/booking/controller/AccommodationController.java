@@ -10,6 +10,7 @@ import my.petproject.booking.dto.accommodation.AccommodationResponseDto;
 import my.petproject.booking.service.AccommodationService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class AccommodationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create a new accommodation",
             description = "Endpoint for creating a new accommodation")
     public AccommodationResponseDto create(
@@ -38,6 +40,7 @@ public class AccommodationController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Get all accommodations",
             description = "Endpoint for getting a list of all accommodations")
     public List<AccommodationResponseDto> getAll(Pageable pageable) {
@@ -46,6 +49,7 @@ public class AccommodationController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Get accommodations by id",
             description = "Endpoint for getting accommodation by input id")
     public AccommodationResponseDto getAccommodationById(@PathVariable Long id) {
@@ -54,6 +58,7 @@ public class AccommodationController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update a accommodation",
             description = "Endpoint for updating data about the existing accommodation by ID")
     public AccommodationResponseDto update(
@@ -64,6 +69,7 @@ public class AccommodationController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a accommodation",
             description = "Endpoint for marking existing accommodation for deletion by ID")

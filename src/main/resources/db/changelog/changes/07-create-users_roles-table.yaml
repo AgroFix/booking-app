@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_users_roles_table
+      author: AgroFix
+      changes:
+        - createTable:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_users_roles_user_id
+                    references: users(id)
+                    primaryKey: true
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_users_roles_role_id
+                    references: roles(id)
+                    primaryKey: true

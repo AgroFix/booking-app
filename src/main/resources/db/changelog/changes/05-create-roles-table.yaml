@@ -1,37 +1,21 @@
 databaseChangeLog:
   - changeSet:
-      id: create_users_table
+      id: create_roles_table
       author: AgroFix
       changes:
         - createTable:
-            tableName: users
+            tableName: roles
             columns:
               - column:
                   name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
+                    nullable: false
                     primaryKey: true
               - column:
-                  name: email
+                  name: role_name
                   type: varchar(255)
-                  constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: first_name
-                  type: varchar(100)
-              - column:
-                  name: last_name
-                  type: varchar(100)
-              - column:
-                  name: password
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: role
-                  type: varchar(50)
                   constraints:
                     nullable: false
               - column:
