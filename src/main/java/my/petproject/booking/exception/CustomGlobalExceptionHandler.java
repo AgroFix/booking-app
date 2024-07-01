@@ -45,7 +45,8 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return object.getDefaultMessage();
     }
 
-    @ExceptionHandler({EntityNotFoundException.class, RegistrationException.class})
+    @ExceptionHandler({EntityNotFoundException.class, RegistrationException.class,
+            IllegalStateException.class})
     public ResponseEntity<Object> handleCustomExceptions(Exception exception) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());

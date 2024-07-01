@@ -39,7 +39,7 @@ public class AccommodationServiceImpl implements AccommodationService {
     @Override
     public AccommodationResponseDto updateAccommodationById(
             AccommodationRequestDto accommodationRequestDto, Long id) {
-        checkIfAccommodationExists(id);
+        getAccommodationFromDb(id);
         Accommodation accommodation = accommodationMapper
                 .toEntity(accommodationRequestDto).setId(id);
         return accommodationMapper.toResponseDto(accommodationRepository.save(accommodation));
@@ -47,19 +47,19 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public AccommodationResponseDto getAccommodationById(Long id) {
-        Accommodation accommodation = checkIfAccommodationExists(id);
+        Accommodation accommodation = getAccommodationFromDb(id);
         return accommodationMapper
                 .toResponseDto(accommodation);
     }
 
     @Override
     public void deleteAccommodationById(Long id) {
-        accommodationRepository.deleteById(id);
+        Accommodation accommodation = getAccommodationFromDb(id);
+        accommodationRepository.deleteById(accommodation.getId());
     }
 
-    private Accommodation checkIfAccommodationExists(Long id) {
-        Accommodation accommodation = accommodationRepository.findById(id)
+    private Accommodation getAccommodationFromDb(Long id) {
+        return accommodationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(CANT_FIND_BY_ID + id));
-        return accommodation;
     }
 }
