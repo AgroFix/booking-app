@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users-to-users-table
+      author: AgroFix
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: user@example.com
+              - column:
+                  name: first_name
+                  value: John
+              - column:
+                  name: last_name
+                  value: Doe
+              - column:
+                  name: password
+                  value: $2a$10$noqggUzmF7Cbliq7dwaHdu91Srgt/QeozCnsd5RWSukd4gyfy975q
+              - column:
+                  name: role
+                  value: ADMIN
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: random@example.com
+              - column:
+                  name: first_name
+                  value: Max
+              - column:
+                  name: last_name
+                  value: Power
+              - column:
+                  name: password
+                  value: $2a$10$noqggUzmF7Cbliq7dwaHdu91Srgt/QeozCnsd5RWSukd4gyfy975q
+              - column:
+                  name: role
+                  value: USER
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: test@example.com
+              - column:
+                  name: first_name
+                  value: Oleksandr
+              - column:
+                  name: last_name
+                  value: Matsko
+              - column:
+                  name: password
+                  value: $2a$10$noqggUzmF7Cbliq7dwaHdu91Srgt/QeozCnsd5RWSukd4gyfy975q
+              - column:
+                  name: role
+                  value: USER

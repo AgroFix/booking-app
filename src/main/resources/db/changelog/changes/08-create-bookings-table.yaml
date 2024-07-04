@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create_payments_table
+      id: create_bookings_table
       author: AgroFix
       changes:
         - createTable:
-            tableName: payments
+            tableName: bookings
             columns:
               - column:
                   name: id
@@ -13,26 +13,28 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: status
-                  type: varchar(50)
-                  constraints:
-                    nullable: false
+                  name: check_in_date
+                  type: date
               - column:
-                  name: booking_id
+                  name: check_out_date
+                  type: date
+              - column:
+                  name: accommodation_id
                   type: bigint
                   constraints:
-                    foreignKeyName: booking_id
-                    references: bookings(id)
+                    foreignKeyName: fk_accommodation_id
+                    references: accommodations(id)
                     nullable: false
               - column:
-                  name: session_url
-                  type: varchar(255)
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_user_id
+                    references: users(id)
+                    nullable: false
               - column:
-                  name: session_id
-                  type: varchar(255)
-              - column:
-                  name: amount_to_pay
-                  type: decimal(10, 2)
+                  name: status
+                  type: varchar(50)
                   constraints:
                     nullable: false
               - column:

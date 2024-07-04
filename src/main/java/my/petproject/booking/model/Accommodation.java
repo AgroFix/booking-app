@@ -1,11 +1,13 @@
 package my.petproject.booking.model;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import java.math.BigDecimal;
@@ -38,9 +40,16 @@ public class Accommodation {
     private String location;
     @Column(nullable = false)
     private String size;
-    @Column(nullable = false)
-    @ElementCollection
-    private List<String> amenities;
+    @ManyToMany
+    @JoinTable(
+            name = "accommodations_amenities",
+            joinColumns = @JoinColumn(name = "accommodation_id"),
+            inverseJoinColumns = @JoinColumn(name = "amenity_id")
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Amenity> amenities;
+
     @Column(nullable = false, name = "daily_rate")
     @Min(0)
     private BigDecimal rate;

@@ -6,7 +6,6 @@ import my.petproject.booking.dto.booking.BookingRequestDto;
 import my.petproject.booking.dto.booking.BookingResponseDto;
 import my.petproject.booking.model.Accommodation;
 import my.petproject.booking.model.Booking;
-import my.petproject.booking.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -33,13 +32,6 @@ public interface BookingMapper {
     @Named("mapStringToStatus")
     default Booking.Status mapStringToStatus(String status) {
         return Booking.Status.valueOf(status.toUpperCase());
-    }
-
-    @Named("mapUserIdToUser")
-    default User mapUserIdToUser(Long userId) {
-        User user = new User();
-        user.setId(userId);
-        return user;
     }
 
     @Named("mapAccommodationIdToAccommodation")

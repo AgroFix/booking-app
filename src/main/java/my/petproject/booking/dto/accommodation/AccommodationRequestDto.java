@@ -15,8 +15,8 @@ public class AccommodationRequestDto {
     private String location;
     @NotBlank
     private String size;
-
-    private List<String> amenities;
+    @NotNull
+    private List<Long> amenitiesIds;
     @Min(0)
     @NotNull
     private BigDecimal rate;
