@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-into-amenities-table
+      author: AgroFix
+      changes:
+        - insert:
+            tableName: amenities
+            columns:
+              - column:
+                  name: name
+                  value: Wi-Fi
+        - insert:
+            tableName: amenities
+            columns:
+              - column:
+                  name: name
+                  value: Pool
+        - insert:
+            tableName: amenities
+            columns:
+              - column:
+                  name: name
+                  value: Parking

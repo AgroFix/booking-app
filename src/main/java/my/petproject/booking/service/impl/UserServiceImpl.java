@@ -51,10 +51,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserProfileResponseDto updateRole(Long id, UpdateRoleRequestDto roleRequestDto) {
         User userFromDb = getUserFromDb(id);
-        Set<Role> roleSet = userFromDb.getRoleSet();
         Role role = roleRepository.findRoleByRoleName(roleRequestDto.getRoleName())
                 .orElseThrow(() -> new EntityNotFoundException(String.format(
                         ROLE_NOT_FOUND, roleRequestDto.getRoleName())));
+        Set<Role> roleSet = userFromDb.getRoleSet();
+        roleSet.clear();
         roleSet.add(role);
         userFromDb.setRoleSet(roleSet);
         if (role.getRoleName().equals(Role.RoleName.ADMIN)) {
