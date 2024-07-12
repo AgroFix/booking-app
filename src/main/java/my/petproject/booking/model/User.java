@@ -30,6 +30,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Accessors(chain = true)
 @Table(name = "users")
 public class User implements UserDetails {
+
+    private static final Long DEFAULT_EMPTY_CHAT_ID = -1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -57,6 +60,11 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet = new HashSet<>();
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @Column(unique = true)
+    private Long telegramChatId;
 
     @Column(nullable = false)
     private boolean isDeleted = false;
@@ -94,5 +102,9 @@ public class User implements UserDetails {
     public enum RoleName {
         ADMIN,
         USER
+    }
+
+    public Long getTelegramChatId() {
+        return telegramChatId == null ? DEFAULT_EMPTY_CHAT_ID : telegramChatId;
     }
 }

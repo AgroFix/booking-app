@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-column-telegram-chat-id-to-users-table
+      author: AgroFix
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: telegram_chat_id
+                  type: bigint
+                  constraints:
+                    unique: true

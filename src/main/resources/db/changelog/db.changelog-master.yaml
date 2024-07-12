@@ -23,3 +23,5 @@ databaseChangeLog:
       file: db/changelog/changes/11-insert-into-users_roles-table.yaml
   - include:
       file: db/changelog/changes/12-insert-into-amenities-table.yaml
+  - include:
+      file: db/changelog/changes/13-add-column-telegram-chat-id-to-users-table.yaml
