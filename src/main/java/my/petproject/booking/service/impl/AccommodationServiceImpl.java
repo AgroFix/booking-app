@@ -13,6 +13,7 @@ import my.petproject.booking.model.Amenity;
 import my.petproject.booking.repository.AccommodationRepository;
 import my.petproject.booking.repository.AmenityRepository;
 import my.petproject.booking.service.AccommodationService;
+import my.petproject.booking.service.TelegramService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class AccommodationServiceImpl implements AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final AmenityRepository amenityRepository;
     private final AccommodationMapper accommodationMapper;
+    private final TelegramService telegramService;
 
     @Transactional
     @Override
@@ -34,7 +36,10 @@ public class AccommodationServiceImpl implements AccommodationService {
             AccommodationRequestDto accommodationRequestDto) {
         Accommodation accommodation = accommodationMapper.toEntity(accommodationRequestDto);
         setAmenitiesFromDb(accommodation, accommodationRequestDto.getAmenitiesIds());
-        return accommodationMapper.toResponseDto(accommodationRepository.save(accommodation));
+        AccommodationResponseDto responseDto = accommodationMapper
+                .toResponseDto(accommodation);
+        telegramService.sendAccommodationCreateMessage(responseDto);
+        return responseDto;
     }
 
     @Override
@@ -52,7 +57,10 @@ public class AccommodationServiceImpl implements AccommodationService {
         Accommodation accommodation = accommodationMapper
                 .toEntity(accommodationRequestDto).setId(id);
         setAmenitiesFromDb(accommodation, accommodationRequestDto.getAmenitiesIds());
-        return accommodationMapper.toResponseDto(accommodationRepository.save(accommodation));
+        AccommodationResponseDto responseDto = accommodationMapper
+                .toResponseDto(accommodation);
+        telegramService.sendAccommodationUpdateMessage(responseDto);
+        return responseDto;
     }
 
     @Transactional

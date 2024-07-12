@@ -17,6 +17,7 @@ import my.petproject.booking.repository.AccommodationRepository;
 import my.petproject.booking.repository.BookingRepository;
 import my.petproject.booking.repository.UserRepository;
 import my.petproject.booking.service.BookingService;
+import my.petproject.booking.service.TelegramService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,7 @@ public class BookingServiceImpl implements BookingService {
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
+    private final TelegramService telegramService;
 
     @Transactional
     @Override
@@ -53,7 +55,10 @@ public class BookingServiceImpl implements BookingService {
         booking.setAccommodation(accommodation);
         booking.setStatus(Booking.Status.valueOf(bookingRequestDto.getStatus()));
         booking.setUser(user);
-        return bookingMapper.toResponseDto(bookingRepository.save(booking));
+        BookingResponseDto responseDto = bookingMapper
+                .toResponseDto(bookingRepository.save(booking));
+        telegramService.sendBookingCreateMessage(responseDto);
+        return responseDto;
     }
 
     @Override
@@ -92,7 +97,10 @@ public class BookingServiceImpl implements BookingService {
         booking.setCheckInDate(bookingUpdateDto.getCheckInDate());
         booking.setCheckOutDate(bookingUpdateDto.getCheckOutDate());
 
-        return bookingMapper.toResponseDto(bookingRepository.save(booking));
+        BookingResponseDto responseDto = bookingMapper
+                .toResponseDto(bookingRepository.save(booking));
+        telegramService.sendBookingUpdateMessage(responseDto);
+        return responseDto;
     }
 
     @Override
